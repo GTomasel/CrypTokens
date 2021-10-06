@@ -1,0 +1,89 @@
+body{
+  background-color: #ececec;
+  //background-color: #00030f;
+  background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");
+}
+
+.card-body{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; 
+    justify-content: center;
+    padding: .8rem 1.25rem 1.25rem;
+}
+
+.card{
+    //background-color:rgb(190, 190, 190);
+    //border-radius: 10px;
+    text-align: center;
+    //padding: 10px 20px;
+    margin: 3px;
+    //width: 180px;
+    .title{
+      font-size: 1.5rem;
+      //line-height: 1.2;
+    }
+    .price{
+      color: #00cfff;
+    }
+}
+
+.search{
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    #searchField{
+      width: auto;
+    }
+}
+
+#searchField{
+  color: white;
+  background-color:#3b3e42;
+}
+
+.dropdown-menu{
+  min-width: 3.2rem;
+  text-align: center;
+
+  a {
+    text-decoration: none;
+    color: black;
+    &:hover {
+      text-decoration: none;
+      color: rgb(0, 39, 212);
+    }
+  }
+}
+  
+  .modal-header {
+    border: none;
+    .close {
+      margin-top: -1.5rem;
+    }
+  }
+
+  .modal-footer {
+    border: none;
+  }
+  
+  .form-title {
+    margin: -2rem 0rem 2rem;
+  }
+  
+  .btn-round {
+    border-radius: 3rem;
+  }
+  
+  
+  @media (min-width: 576px){
+    .modal-dialog {
+      max-width: 400px;
+      
+      .modal-content {
+        padding: 1rem;
+      }
+    }
+  }
+  
+ 
