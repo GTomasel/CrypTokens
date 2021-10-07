@@ -31,7 +31,8 @@ body{
 .search{
     display: flex;
     justify-content: center;
-    padding-top: 20px;
+    padding-top: 3rem;
+    padding-bottom: 1.2rem;
     #searchField{
       width: auto;
     }
@@ -40,6 +41,9 @@ body{
 #searchField{
   color: white;
   background-color:#3b3e42;
+  &::placeholder{
+    color:rgb(202, 202, 202);
+  }
 }
 
 .dropdown-menu{
@@ -56,6 +60,10 @@ body{
   }
 }
   
+.modal{
+  height:auto;
+}
+
   .modal-header {
     border: none;
     .close {
@@ -74,11 +82,27 @@ body{
   .btn-round {
     border-radius: 3rem;
   }
+
+  #okButton{
+    width: 29%;
+  }
   
-  
+ #userProfile{
+    font-size: 1.1rem;
+    .profileImg{
+        width: 2rem;
+        max-width: 40px;
+        color: white;
+    }
+ } 
+
+ .w-auto{
+   width: auto;
+ }
+
   @media (min-width: 576px){
     .modal-dialog {
-      max-width: 400px;
+      max-width: 360px;
       
       .modal-content {
         padding: 1rem;

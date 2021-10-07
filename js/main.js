@@ -1,9 +1,25 @@
+//Button event actions
+const startButton = document.getElementById('startButton')
+startButton.onclick = () => getCoins()
+
+const loginButton = document.getElementById('loginButton')
+loginButton.onclick = () => openLoginModal()
+
+const okButton = document.getElementById('okButton')
+okButton.onclick = () => userCredentials()
+
+const createUserBtn = document.getElementById('createUser')
+createUserBtn.onclick = () => createUser()
+
+const searchBtn = document.getElementById('searchBtn')
+searchBtn.onclick = () => searchCoin()
+
+
 //Draw cards from congecko API
 async function getCoins(qty = 10) {
     const APIurl = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page='+qty+'&page=1&sparkline=false'
     const response = await fetch(APIurl)
     const data = await response.json()
-    console.log(data);
     
     document.getElementById('cards').innerHTML = ""
 
@@ -11,13 +27,7 @@ async function getCoins(qty = 10) {
         const symbolMayus = data[i].symbol;
         let card = document.createElement('div');      
         card.innerHTML = 
-                        // `<div class="card border">
-                        //     <span class="title">${data[i].name}</span>
-                        //     <span class="title">${symbolMayus.toUpperCase()}</span>
-                        //     <span class="price">$${data[i].current_price}</span>
-                        // </div>`;
-
-                        `<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                       `<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
                         <div class="card-header">${data[i].name}</div>
                         <div class="card-body flex-column">
                             <span class="title w-100">${symbolMayus.toUpperCase()}</span>
@@ -28,7 +38,6 @@ async function getCoins(qty = 10) {
         document.getElementById('cards').appendChild(card);
     }
 }
-
 getCoins()
 
 
@@ -51,7 +60,7 @@ async function searchCoin() {
 
         const symbolMayus = data[0].symbol;
         let card = document.createElement('div');   
-        card.innerHTML = `<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+        card.innerHTML =   `<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
                             <div class="card-header">${data[0].name}</div>
                             <div class="card-body flex-column">
                                 <span class="title w-100">${symbolMayus.toUpperCase()}</span>
@@ -65,7 +74,6 @@ async function searchCoin() {
 }
 
 
-
 //Dropdown
 $(".dropdown-menu li a").click(function(){
     var selText = $(this).text();
@@ -73,62 +81,13 @@ $(".dropdown-menu li a").click(function(){
     getCoins(selText)
 });
 
-//Login Modal
-function openLoginModal() {             
-    $('#loginModal').modal('show');
-    $(function () {
-        document.getElementById('userID').placeholder = 'Usuario';
-        document.getElementById('userPass').placeholder = 'Contraseña';
-        document.getElementById('modalTitle').innerText = 'Ingresar';
-        clearLoginFields();
-        $('[data-toggle="tooltip"]').tooltip();
-    })
-};
 
-//Create user modal modifier
-function createUser(){
-    document.getElementById('userID').placeholder = 'Ingrese nombre de usuario';
-    document.getElementById('userPass').placeholder = 'Ingrese su contraseña';
-    document.getElementById('modalTitle').innerText = 'Crear nuevo usuario';
-}
-
-//Login
-function userCredentials(){
-
-    const modalTitle = document.getElementById('modalTitle').innerText;
-    const userID = document.getElementById('userID').value;
-    const userPass = document.getElementById('userPass').value;
-    const localStorageID = localStorage.getItem(userID);
-
-    if (modalTitle == 'Crear nuevo usuario'){    
-
-    localStorage.setItem(userID, userPass);
-    
-    $('#loginModal').modal('hide');
-    document.getElementById('popupModalLabel').innerText = 'Usuario creado con éxito!';
-    $('#popupModal').modal('show');
-
-    clearLoginFields();
-
-    }else if (localStorageID !== null && localStorageID == userPass){
-
-        $('#loginModal').modal('hide');
-        document.getElementById('popupModalLabel').innerText = 'Bienvenido nuevamente!';
-        $('#popupModal').modal('show');
-
-        }else{
-
-            $('#loginModal').modal('hide');    
-            document.getElementById('popupModalLabel').innerText = 'Usuario o contraseña incorrectos';
-            $('#popupModal').modal('show');
-        }
-}
-
-
+//Clear
 function clearLoginFields(){
     document.getElementById('userID').value = "";
     document.getElementById('userPass').value = "";
 }
+
 
 // function showUsername(){
 //     const user = document.getElementById('userID').value;

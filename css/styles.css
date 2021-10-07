@@ -39,7 +39,8 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  padding-top: 20px;
+  padding-top: 3rem;
+  padding-bottom: 1.2rem;
 }
 
 .search #searchField {
@@ -49,6 +50,22 @@ body {
 #searchField {
   color: white;
   background-color: #3b3e42;
+}
+
+#searchField::-webkit-input-placeholder {
+  color: #cacaca;
+}
+
+#searchField:-ms-input-placeholder {
+  color: #cacaca;
+}
+
+#searchField::-ms-input-placeholder {
+  color: #cacaca;
+}
+
+#searchField::placeholder {
+  color: #cacaca;
 }
 
 .dropdown-menu {
@@ -64,6 +81,10 @@ body {
 .dropdown-menu a:hover {
   text-decoration: none;
   color: #0027d4;
+}
+
+.modal {
+  height: auto;
 }
 
 .modal-header {
@@ -86,9 +107,27 @@ body {
   border-radius: 3rem;
 }
 
+#okButton {
+  width: 29%;
+}
+
+#userProfile {
+  font-size: 1.1rem;
+}
+
+#userProfile .profileImg {
+  width: 2rem;
+  max-width: 40px;
+  color: white;
+}
+
+.w-auto {
+  width: auto;
+}
+
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: 400px;
+    max-width: 360px;
   }
   .modal-dialog .modal-content {
     padding: 1rem;
