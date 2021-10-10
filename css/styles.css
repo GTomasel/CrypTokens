@@ -1,6 +1,6 @@
 body {
   background-color: #ececec;
-  background-image: url("https://www.transparenttextures.com/patterns/3px-tile.png");
+  background-image: url("../media/3px-tile.png");
 }
 
 .card-body {
@@ -30,6 +30,28 @@ body {
 
 .card .price {
   color: #00cfff;
+}
+
+.card .idHidden {
+  font-size: 0px;
+  margin: 10px 0 0 10px;
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+:checked + svg {
+  border: 1px solid rgba(204, 204, 204, 0);
+}
+
+.favStar {
+  width: 1.5rem;
+}
+
+.favStarChecked {
+  width: 1.5rem;
+  fill: #ffc107;
 }
 
 .search {
@@ -125,12 +147,11 @@ body {
   width: auto;
 }
 
-@media (min-width: 576px) {
-  .modal-dialog {
-    max-width: 360px;
-  }
-  .modal-dialog .modal-content {
-    padding: 1rem;
-  }
+.modal-dialog {
+  max-width: 360px;
+}
+
+.modal-content {
+  padding: 1rem;
 }
 /*# sourceMappingURL=styles.css.map */

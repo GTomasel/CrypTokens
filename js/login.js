@@ -1,8 +1,36 @@
-function User(name, pass, favorites) {
+function User(name, pass, favorites, logged, id) {
     this.name = name;
     this.pass = pass;
     this.favorites = favorites;
+    this.logged = logged;
+    this.id = id;
 }
+
+function addUserProfileIfLogged(){
+    
+    let localStorageLenght = localStorage.length;
+    let localStorageContent = new Array;
+
+    for (let i = 0; i < localStorageLenght; i++){
+        let JSONparse = JSON.parse(localStorage.getItem('User'+i));
+        localStorageContent.push(JSONparse);
+    }
+
+    const loggedUserCredentials = localStorageContent.find(item => item.logged == 1);        
+
+
+    if (loggedUserCredentials !== undefined && loggedUserCredentials.logged == 1){
+
+    const userID = loggedUserCredentials.name;
+
+    document.getElementById('loginButton').innerText = 'Salir';            
+    document.getElementById('userProfile').innerHTML = 
+            `<span id="userProfileName" class="text-white mr-1">${userID}</span>
+            <img class="profileImg mr-2" src="../media/user.svg"></img>`; 
+    }
+}
+
+addUserProfileIfLogged()
 
 
 //Create user modal modifier
@@ -13,6 +41,7 @@ function createUser(){
 }
 
 
+
 //Login Modal
 function openLoginModal() { 
     const loginButton = document.getElementById('loginButton').innerText;   
@@ -21,6 +50,24 @@ function openLoginModal() {
         $('#loginModal').modal('hide');
         document.getElementById('popupModalLabel').innerText = 'Hasta la proxima!';
         $('#popupModal').modal('show');
+        getCoins();
+
+        const loggedUserName = document.getElementById('userProfileName').innerHTML
+
+        let localStorageLenght = localStorage.length;
+        let localStorageContent = new Array;
+
+        for (let i = 0; i < localStorageLenght; i++){
+            let JSONparse = JSON.parse(localStorage.getItem('User'+i));
+            localStorageContent.push(JSONparse);
+        }
+
+        let loggedUserCredentials = localStorageContent.find(item => item.name === loggedUserName);
+        loggedUserCredentials.logged = 0;
+
+        const loggedUserJSON = JSON.stringify(loggedUserCredentials);
+        localStorage.setItem('User'+loggedUserCredentials.id, loggedUserJSON);
+
         document.getElementById('userProfile').innerHTML = "";
     }
     else{         
@@ -43,13 +90,13 @@ function userCredentials(){
 
     const userID = document.getElementById('userID').value;
     const userPass = document.getElementById('userPass').value;
-    const userFavorites = "";
-
-    const user = new User (userID, userPass, userFavorites);
-    const userJSON = JSON.stringify(user);  
-
+    const userFavorites = [];
+    
     const localStorageLenght = localStorage.length;
-    var localStorageContent = new Array;
+    let localStorageContent = new Array;
+
+    const user = new User (userID, userPass, userFavorites, 1, localStorageLenght);
+    const userJSON = JSON.stringify(user);  
 
     for (let i = 0; i < localStorageLenght; i++){
         let JSONparse = JSON.parse(localStorage.getItem('User'+i));
@@ -60,7 +107,7 @@ function userCredentials(){
     function addUserProfile(){
         document.getElementById('loginButton').innerText = 'Salir';            
         document.getElementById('userProfile').innerHTML = 
-            `<span class="text-white mr-1">${userID}</span>
+            `<span id="userProfileName" class="text-white mr-1">${userID}</span>
             <img class="profileImg mr-2" src="../media/user.svg"></img>`; 
     }
    
@@ -76,6 +123,7 @@ function userCredentials(){
 
     clearLoginFields();
     addUserProfile();
+    getCoins();
     
     //Username already exist
     }else if (modalTitle == 'Crear nuevo usuario' && checkUserExist !== null){
@@ -96,7 +144,12 @@ function userCredentials(){
                 $('#loginModal').modal('hide');
                 document.getElementById('popupModalLabel').innerText = 'Bienvenido nuevamente!';
                 $('#popupModal').modal('show');
-                addUserProfile()          
+                addUserProfile();
+                getCoins();
+
+                checkUserExist.logged = 1;
+                let loggedUserJSON = JSON.stringify(checkUserExist);
+                localStorage.setItem('User'+checkUserExist.id, loggedUserJSON);
         
                 }else{
                     $('#loginModal').modal('hide');    

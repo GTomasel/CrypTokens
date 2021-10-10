@@ -9,12 +9,13 @@
     <link rel='stylesheet' type='text/css' media='screen' href='css/styles.css'>
     <script src='js/main.js' defer></script>
     <script src='js/login.js' defer></script>
+    <script src='js/favorites.js' defer></script>
   </head>
   <body>
     <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand ml-5" href="index.html">AlCrypToken</a>
       <a id="startButton" class="nav-link text-white" href="#">Inicio</a>
-      <a class="nav-link text-warning" href="#">Favoritos</a>
+      <a id="favoritesBtn" class="nav-link text-warning" href="#">Favoritos</a>
       <div class="ml-auto" id="userProfile"></div>
       <button id="loginButton" type="button" class="btn btn-outline-light my-2 my-sm-0 ml-2 mr-5">
         Ingresar
@@ -62,7 +63,7 @@
       </div>      
     </nav>
     <div class="search">
-      <input id="searchField" class="form-control mr-sm-2" type="search" placeholder="Ingrese nombre del token" aria-label="Search" required>
+      <input id="searchField" class="form-control mr-sm-2" type="search" placeholder="Ingrese el id del token" aria-label="Search" required>
       <button id="searchBtn" class="btn btn-dark my-2 my-sm-0">Buscar</button>
       <div class="btn-group">      
           <button id="itemsQty" class="btn btn-dark ml-2 dropdown-toggle" name="recordinput" data-toggle="dropdown">
