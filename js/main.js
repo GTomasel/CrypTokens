@@ -20,17 +20,21 @@ favoritesBtn.onclick = () => favoritesButton()
 
 //Draw cards from congecko API
 async function getCoins(qty = 20, currency = 'usd') {
+
     const APIurl = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency='+currency+'&order=market_cap_desc&per_page='+qty+'&page=1&sparkline=false'
     const response = await fetch(APIurl)
     const data = await response.json()
     
     document.getElementById('cards').innerHTML = ""
 
+    
+
     for (let i = 0; i < qty; i++){  
+
         const symbolMayus = data[i].symbol;
         let card = document.createElement('div');      
         card.innerHTML = 
-                       `<div id="card${i}" class="card text-white bg-dark mb-3">
+                       `<div id="card${i}" class="card text-white bg-dark mb-3" data-aos="zoom-in">
                             <div class="d-flex flex-row-reverse">
                                 <div class="card-header">${data[i].name}</div>
                                 <label class="idHidden d-flex"><input id="favCheckbox${i}" type="checkbox">${data[i].id}<svg id="favStar${i}" class="favStar" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -49,6 +53,7 @@ async function getCoins(qty = 20, currency = 'usd') {
                             </div>
                         </div>`;
 
+        
         const coinID = data[i].id;
         const favCheckboxId = 'favCheckbox'+i;
         const favStar = 'favStar'+i;
@@ -148,10 +153,14 @@ async function getCoins(qty = 20, currency = 'usd') {
                 
             }
         });
+
     }
 }
 
 getCoins()
+
+
+
 
 
 //Search
@@ -297,7 +306,7 @@ async function searchCoin() {
 }
 
 
-//Dropdown
+//Dropdown JQuery
 $(".dropdown-menu li a").click(function(){
     var selText = $(this).text();
     $(this).parents('.btn-group').find('.dropdown-toggle').html('<span class="itemsQty">'+selText+'</span>');

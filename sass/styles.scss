@@ -13,7 +13,12 @@ body{
 nav{
   height: 90px;
   .navbar-brand{
-    font-size:1.5rem;
+    font-size:1.7rem;
+    margin-right: 2rem;
+    .moneyLogo{
+      width: 60px;
+      margin-right: 1rem;
+    }
   }
   .nav-link{
     font-size:1.2rem;

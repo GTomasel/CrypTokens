@@ -14,7 +14,13 @@ nav {
 }
 
 nav .navbar-brand {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
+  margin-right: 2rem;
+}
+
+nav .navbar-brand .moneyLogo {
+  width: 60px;
+  margin-right: 1rem;
 }
 
 nav .nav-link {
