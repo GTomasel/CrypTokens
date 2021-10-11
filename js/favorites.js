@@ -1,6 +1,6 @@
-async function drawFavorites(idCoin, id) {
+async function drawFavorites(idCoin, id, currency = 'usd') {
 
-    const APIurlSearch = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids='+idCoin+'&order=market_cap_desc&per_page=100&page=1&sparkline=false'
+    const APIurlSearch = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency='+currency+'&ids='+idCoin+'&order=market_cap_desc&per_page=100&page=1&sparkline=false'
     const response = await fetch(APIurlSearch)
     const data = await response.json()
 
@@ -8,22 +8,23 @@ async function drawFavorites(idCoin, id) {
         const symbolMayus = data[0].symbol;
         let card = document.createElement('div');      
         card.innerHTML = 
-                       `<div id="card${id}" class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-                        <div class="card-header">${data[0].name}</div>
-                        <label class="idHidden d-flex"><input id="favCheckbox${id}" type="checkbox">${data[0].id}<svg id="favStar${id}" class="favStar" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                            viewBox="0 0 329.942 329.942" xml:space="preserve">
-                        <path id="XMLID_16_" d="M329.208,126.666c-1.765-5.431-6.459-9.389-12.109-10.209l-95.822-13.922l-42.854-86.837
-                            c-2.527-5.12-7.742-8.362-13.451-8.362c-5.71,0-10.925,3.242-13.451,8.362l-42.851,86.836l-95.825,13.922
-                            c-5.65,0.821-10.345,4.779-12.109,10.209c-1.764,5.431-0.293,11.392,3.796,15.377l69.339,67.582L57.496,305.07
-                            c-0.965,5.628,1.348,11.315,5.967,14.671c2.613,1.899,5.708,2.865,8.818,2.865c2.387,0,4.784-0.569,6.979-1.723l85.711-45.059
-                            l85.71,45.059c2.208,1.161,4.626,1.714,7.021,1.723c8.275-0.012,14.979-6.723,14.979-15c0-1.152-0.13-2.275-0.376-3.352
-                            l-16.233-94.629l69.339-67.583C329.501,138.057,330.972,132.096,329.208,126.666z"/>
-                        
-                        </label>
-                        <div class="card-body flex-column">
-                            <span class="title w-100">${symbolMayus.toUpperCase()}</span>
-                            <span class="price w-100">$${data[0].current_price}</span>
-                        </div>
+                        `<div id="card${id}" class="card text-white bg-dark mb-3">
+                            <div class="d-flex flex-row-reverse">
+                                <div class="card-header">${data[0].name}</div>
+                                <label class="idHidden d-flex"><input id="favCheckbox${id}" type="checkbox">${data[0].id}<svg id="favStar${id}" class="favStar" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                    viewBox="0 0 329.942 329.942" xml:space="preserve">
+                                <path id="XMLID_16_" d="M329.208,126.666c-1.765-5.431-6.459-9.389-12.109-10.209l-95.822-13.922l-42.854-86.837
+                                    c-2.527-5.12-7.742-8.362-13.451-8.362c-5.71,0-10.925,3.242-13.451,8.362l-42.851,86.836l-95.825,13.922
+                                    c-5.65,0.821-10.345,4.779-12.109,10.209c-1.764,5.431-0.293,11.392,3.796,15.377l69.339,67.582L57.496,305.07
+                                    c-0.965,5.628,1.348,11.315,5.967,14.671c2.613,1.899,5.708,2.865,8.818,2.865c2.387,0,4.784-0.569,6.979-1.723l85.711-45.059
+                                    l85.71,45.059c2.208,1.161,4.626,1.714,7.021,1.723c8.275-0.012,14.979-6.723,14.979-15c0-1.152-0.13-2.275-0.376-3.352
+                                    l-16.233-94.629l69.339-67.583C329.501,138.057,330.972,132.096,329.208,126.666z"/>
+                                </label>
+                            </div>
+                            <div class="card-body flex-column">
+                                <span class="title w-100">${symbolMayus.toUpperCase()}</span>
+                                <span class="price w-100">$${data[0].current_price}</span>
+                            </div>
                         </div>`;
 
         const coinID = data[0].id;
@@ -89,8 +90,8 @@ async function drawFavorites(idCoin, id) {
 
             }else if (e.target.checked == false){
 
-                document.getElementById('favStar'+id).classList.remove('favStarChecked'); 
-                document.getElementById('favStar'+id).classList.add('favStar');
+                document.getElementById('card'+id).innerHTML = ""; 
+                //document.getElementById('favStar'+id).classList.add('favStar');
 
                 let localStorageLenght = localStorage.length;
                 let localStorageContent = new Array;
@@ -126,7 +127,7 @@ async function drawFavorites(idCoin, id) {
     }
 
 
-function favoritesButton(){
+function favoritesButton(currency){
 
     document.getElementById('cards').innerHTML = ""
 
@@ -146,7 +147,7 @@ function favoritesButton(){
 
         for(let i = 0; i < favoritesCheckedLocalStorage.length; i++){ 
 
-            drawFavorites(loggedUserCredentials.favorites[i], i)
+            drawFavorites(loggedUserCredentials.favorites[i], i, currency)
         
         }
 
