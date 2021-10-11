@@ -26,7 +26,7 @@ function addUserProfileIfLogged(){
     document.getElementById('loginButton').innerText = 'Salir';            
     document.getElementById('userProfile').innerHTML = 
             `<span id="userProfileName" class="text-white mr-1">${userID}</span>
-            <img class="profileImg mr-2" src="../media/user.svg"></img>`; 
+            <img class="profileImg mr-2" src="media/user.svg"></img>`; 
     }
 }
 
@@ -108,7 +108,7 @@ function userCredentials(){
         document.getElementById('loginButton').innerText = 'Salir';            
         document.getElementById('userProfile').innerHTML = 
             `<span id="userProfileName" class="text-white mr-1">${userID}</span>
-            <img class="profileImg mr-2" src="../media/user.svg"></img>`; 
+            <img class="profileImg mr-2" src="media/user.svg"></img>`; 
     }
    
     //Create User
