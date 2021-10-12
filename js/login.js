@@ -6,27 +6,22 @@ function User(name, pass, favorites, logged, id) {
     this.id = id;
 }
 
-function addUserProfileIfLogged(){
-    
-    let localStorageLenght = localStorage.length;
-    let localStorageContent = new Array;
+//Load logged user on site load
+function addUserProfileIfLogged() {
 
-    for (let i = 0; i < localStorageLenght; i++){
-        let JSONparse = JSON.parse(localStorage.getItem('User'+i));
-        localStorageContent.push(JSONparse);
-    }
+    const localStorageContent = lsContent();
 
-    const loggedUserCredentials = localStorageContent.find(item => item.logged == 1);        
+    const loggedUserCredentials = localStorageContent.find(item => item.logged == 1);
 
 
-    if (loggedUserCredentials !== undefined && loggedUserCredentials.logged == 1){
+    if (loggedUserCredentials !== undefined && loggedUserCredentials.logged == 1) {
 
-    const userID = loggedUserCredentials.name;
+        const userID = loggedUserCredentials.name;
 
-    document.getElementById('loginButton').innerText = 'Salir';            
-    document.getElementById('userProfile').innerHTML = 
+        document.getElementById('loginButton').innerText = 'Salir';
+        document.getElementById('userProfile').innerHTML =
             `<span id="userProfileName" class="text-white mr-1">${userID}</span>
-            <img class="profileImg mr-2" src="media/user.svg"></img>`; 
+            <img class="profileImg mr-2" src="media/user.svg"></img>`;
     }
 }
 
@@ -34,43 +29,36 @@ addUserProfileIfLogged()
 
 
 //Create user modal modifier
-function createUser(){
+function createUser() {
     document.getElementById('userID').placeholder = 'Ingrese nombre de usuario';
     document.getElementById('userPass').placeholder = 'Ingrese su contraseña';
     document.getElementById('modalTitle').innerText = 'Crear nuevo usuario';
 }
 
 
-
 //Login Modal
-function openLoginModal() { 
-    const loginButton = document.getElementById('loginButton').innerText;   
-    if (loginButton == 'Salir'){
+function openLoginModal() {
+    const loginButton = document.getElementById('loginButton').innerText;
+    if (loginButton == 'Salir') {
         document.getElementById('loginButton').innerText = 'Ingresar';
         $('#loginModal').modal('hide');
-        document.getElementById('popupModalLabel').innerText = 'Hasta la proxima!';
+        document.getElementById('popupModalLabel').innerText = '¡Hasta la proxima!';
         $('#popupModal').modal('show');
         getCoins();
 
         const loggedUserName = document.getElementById('userProfileName').innerHTML
 
-        let localStorageLenght = localStorage.length;
-        let localStorageContent = new Array;
-
-        for (let i = 0; i < localStorageLenght; i++){
-            let JSONparse = JSON.parse(localStorage.getItem('User'+i));
-            localStorageContent.push(JSONparse);
-        }
+        const localStorageContent = lsContent();
 
         let loggedUserCredentials = localStorageContent.find(item => item.name === loggedUserName);
         loggedUserCredentials.logged = 0;
 
         const loggedUserJSON = JSON.stringify(loggedUserCredentials);
-        localStorage.setItem('User'+loggedUserCredentials.id, loggedUserJSON);
+        localStorage.setItem('User' + loggedUserCredentials.id, loggedUserJSON);
 
         document.getElementById('userProfile').innerHTML = "";
     }
-    else{         
+    else {
         $('#loginModal').modal('show');
         $(function () {
             document.getElementById('userID').placeholder = 'Usuario';
@@ -84,79 +72,78 @@ function openLoginModal() {
 
 
 //Login
-function userCredentials(){
+function userCredentials() {
 
     const modalTitle = document.getElementById('modalTitle').innerText;
 
     const userID = document.getElementById('userID').value;
     const userPass = document.getElementById('userPass').value;
     const userFavorites = [];
-    
-    const localStorageLenght = localStorage.length;
-    let localStorageContent = new Array;
 
-    const user = new User (userID, userPass, userFavorites, 1, localStorageLenght);
-    const userJSON = JSON.stringify(user);  
+    const localStorageContent = lsContent();
+    let localStorageLenght = localStorage.length;
 
-    for (let i = 0; i < localStorageLenght; i++){
-        let JSONparse = JSON.parse(localStorage.getItem('User'+i));
-        localStorageContent.push(JSONparse);
-    }
+    const user = new User(userID, userPass, userFavorites, 1, localStorageLenght);
+    const userJSON = JSON.stringify(user);
+
     var checkUserExist = localStorageContent.find(item => item.name === userID);
 
-    function addUserProfile(){
-        document.getElementById('loginButton').innerText = 'Salir';            
-        document.getElementById('userProfile').innerHTML = 
+    function addUserProfile() {
+        document.getElementById('loginButton').innerText = 'Salir';
+        document.getElementById('userProfile').innerHTML =
             `<span id="userProfileName" class="text-white mr-1">${userID}</span>
-            <img class="profileImg mr-2" src="media/user.svg"></img>`; 
+            <img class="profileImg mr-2" src="media/user.svg"></img>`;
     }
-   
+
     //Create User
-    if (modalTitle == 'Crear nuevo usuario' && checkUserExist == null){             
-    
-    localStorage.setItem('User'+localStorageLenght, userJSON);
-    
-    $('#loginModal').modal('hide');
-    document.getElementById('popupModalLabel').innerText = 'Usuario creado con éxito!';
-    $('#popupModal').modal('show');
-    document.getElementById('loginButton').innerText = 'Salir';
+    if (modalTitle == 'Crear nuevo usuario' && checkUserExist == null) {
 
-    clearLoginFields();
-    addUserProfile();
-    getCoins();
-    
-    //Username already exist
-    }else if (modalTitle == 'Crear nuevo usuario' && checkUserExist !== null){
+        localStorage.setItem('User' + localStorageLenght, userJSON);
 
-        $('#loginModal').modal('hide');    
+        $('#loginModal').modal('hide');
+        document.getElementById('popupModalLabel').innerText = '¡Usuario creado con éxito!';
+        $('#popupModal').modal('show');
+        document.getElementById('loginButton').innerText = 'Salir';
+
+        clearLoginFields();
+        addUserProfile();
+        getCoins();
+
+        //Username already exist
+    } else if (modalTitle == 'Crear nuevo usuario' && checkUserExist !== null) {
+
+        $('#loginModal').modal('hide');
         document.getElementById('popupModalLabel').innerText = 'El nombre de usuario ya existe';
         $('#popupModal').modal('show');
-        
+
         //User login doesn't exist
-        }else if (checkUserExist == null){
-            $('#loginModal').modal('hide');    
-            document.getElementById('popupModalLabel').innerText = 'Usuario o contraseña incorrectos';
-            $('#popupModal').modal('show');
+    } else if (checkUserExist == null) {
+        $('#loginModal').modal('hide');
+        document.getElementById('popupModalLabel').innerText = 'Usuario o contraseña incorrectos';
+        $('#popupModal').modal('show');
 
-            //User login success
-            }else if(checkUserExist.name == userID && checkUserExist.pass == userPass && modalTitle !== 'Crear nuevo usuario'){
+        //User login success
+    } else if (checkUserExist.name == userID && checkUserExist.pass == userPass && modalTitle !== 'Crear nuevo usuario') {
 
-                $('#loginModal').modal('hide');
-                document.getElementById('popupModalLabel').innerText = 'Bienvenido nuevamente!';
-                $('#popupModal').modal('show');
-                addUserProfile();
-                getCoins();
+        $('#loginModal').modal('hide');
+        document.getElementById('popupModalLabel').innerText = '¡Bienvenido nuevamente!';
+        $('#popupModal').modal('show');
+        addUserProfile();
+        getCoins();
 
-                checkUserExist.logged = 1;
-                let loggedUserJSON = JSON.stringify(checkUserExist);
-                localStorage.setItem('User'+checkUserExist.id, loggedUserJSON);
-        
-                }else{
-                    $('#loginModal').modal('hide');    
-                    document.getElementById('popupModalLabel').innerText = 'Usuario o contraseña incorrectos';
-                    $('#popupModal').modal('show');
-                    }
+        checkUserExist.logged = 1;
+        let loggedUserJSON = JSON.stringify(checkUserExist);
+        localStorage.setItem('User' + checkUserExist.id, loggedUserJSON);
+
+    } else {
+        $('#loginModal').modal('hide');
+        document.getElementById('popupModalLabel').innerText = 'Usuario o contraseña incorrectos';
+        $('#popupModal').modal('show');
+    }
 }
+
+enterKeyEvent("userID", userCredentials);
+enterKeyEvent("userPass", userCredentials);
 
 
 

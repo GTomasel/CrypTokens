@@ -1,86 +1,90 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>CrypTokens</title>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="icon" href="media/money.png" type="image/x-icon">
-    <link rel="stylesheet" type='text/css' href="css/bootstrap.min.css">
-    <link rel='stylesheet' type='text/css' media='screen' href='css/styles.css'>
-    <script src='js/main.js' defer></script>
-    <script src='js/login.js' defer></script>
-    <script src='js/favorites.js' defer></script>
-  </head>
-  <body class="d-flex flex-column">
-    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand ml-5" href="index.html"><img class="moneyLogo" src="media/money.png"></img>CrypTokens</a>
-      <a id="startButton" class="nav-link text-white" href="#">Inicio</a>
-      <a id="favoritesBtn" class="nav-link text-warning" href="#">Favoritos</a>
-      <div class="ml-auto" id="userProfile"></div>
-      <button id="loginButton" type="button" class="btn btn-outline-light my-2 my-sm-0 ml-2 mr-5">
-        Ingresar
-      </button>  
-      <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header border-bottom-0">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+
+<head>
+  <title>CrypTokens</title>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel="icon" href="media/money.png" type="image/x-icon">
+  <link rel="stylesheet" type='text/css' href="css/bootstrap.min.css">
+  <link rel='stylesheet' type='text/css' media='screen' href='css/styles.css'>
+  <script src='js/main.js' defer></script>
+  <script src='js/login.js' defer></script>
+</head>
+
+<body class="d-flex flex-column">
+  <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand ml-5" href="index.html"><img class="moneyLogo" src="media/money.png">CrypTokens</a>
+    <a id="startButton" class="nav-link" href="#">Inicio</a>
+    <a id="favoritesBtn" class="nav-link" href="#">Favoritos</a>
+    <div class="ml-auto" id="userProfile"></div>
+    <button id="loginButton" type="button" class="btn btn-outline-light my-2 my-sm-0 ml-2 mr-5">
+      Ingresar
+    </button>
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-title text-center">
+              <h4 id="modalTitle">Ingresar</h4>
             </div>
-            <div class="modal-body">
-              <div class="form-title text-center">
-                <h4 id="modalTitle">Ingresar</h4>
-              </div>
-              <div class="d-flex flex-column text-center">
-                <form>
-                  <div class="form-group">
-                    <input type="text" class="form-control" id="userID" placeholder="Usuario">
-                  </div>
-                  <div class="form-group">
-                    <input type="password" class="form-control" id="userPass" placeholder="Contraseña">
-                  </div>
-                  <button id="okButton" type="button" class="btn btn-dark btn-block mb-2 mt-2 mx-auto">Aceptar</button>
-                  <a href="#" class="text-dark" id="createUser">Crear nuevo usuario</a>
-                </form>
-              </div>
+            <div class="d-flex flex-column text-center">
+              <form>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="userID" placeholder="Usuario">
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" id="userPass" placeholder="Contraseña">
+                </div>
+                <button id="okButton" type="button" class="btn btn-dark btn-block mb-2 mt-2 mx-auto">Aceptar</button>
+                <a href="#" class="text-dark" id="createUser">Crear nuevo usuario</a>
+              </form>
             </div>
           </div>
         </div>
       </div>
-      <!-- Popup Modal -->
-      <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content w-auto">
-            <div class="modal-header">
-              <h5 class="modal-title mx-auto" id="popupModalLabel"></h5>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-dark mx-auto" data-dismiss="modal">Cerrar</button>
-            </div>
+    </div>
+    <!-- Popup Modal -->
+    <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content w-auto">
+          <div class="modal-header">
+            <h5 class="modal-title mx-auto" id="popupModalLabel"></h5>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-dark mx-auto" data-dismiss="modal">Cerrar</button>
           </div>
         </div>
-      </div>      
-    </nav>
-    <div class="search">
-      <input id="searchField" class="form-control mr-sm-2" type="search" placeholder="Ingrese el id del token" aria-label="Search" required>
-      <button id="searchBtn" class="btn btn-dark my-2 my-sm-0">Buscar</button>
-      <div class="btn-group">      
-            <button id="itemsQty" class="btn btn-dark ml-2 dropdown-toggle" data-toggle="dropdown">
-                <span class="itemsQty">20</span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a href="#">10</a></li>
-                <li><a href="#">20</a></li>
-                <li><a href="#">50</a></li>
-                <li><a href="#">100</a></li>
-            </ul>   
-      </div>                
+      </div>
     </div>
-    <div id="cards" class="card-body"></div>
-    <footer class="footer d-flex justify-content-center">Desarrollado por Gabriel Tomasel ©2021.</footer>
-    <script src="js/jquery-3.5.1.slim.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-  </body>
-  </html>
+  </nav>
+  <div class="search">
+    <input id="searchField" class="form-control mr-sm-2" type="search" placeholder="Ingrese el id del token"
+      aria-label="Search" required>
+    <button id="searchBtn" class="btn btn-dark my-2 my-sm-0">Buscar</button>
+    <div class="btn-group">
+      <button id="itemsQty" class="btn btn-dark ml-2 dropdown-toggle" data-toggle="dropdown">
+        <span class="itemsQty">20</span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="#">10</a></li>
+        <li><a href="#">20</a></li>
+        <li><a href="#">50</a></li>
+        <li><a href="#">100</a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="cards" class="card-body"></div>
+  <footer class="footer d-flex justify-content-center">Desarrollado por Gabriel Tomasel ©2021.</footer>
+  <script src="js/jquery-3.5.1.slim.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

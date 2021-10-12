@@ -5,7 +5,8 @@ body {
   min-height: 100vh;
 }
 
-.bg-dark, .btn-dark {
+.bg-dark,
+.btn-dark {
   background-color: #2e3135e3 !important;
 }
 
@@ -27,6 +28,24 @@ nav .nav-link {
   font-size: 1.2rem;
 }
 
+#startButton {
+  color: #ffc107;
+}
+
+#favoritesBtn {
+  color: white;
+}
+
+.form-control {
+  border: 1px solid #2e3135e3;
+}
+
+.form-control:focus {
+  border-color: #2e3135e3;
+  -webkit-box-shadow: 0 0 0 .2rem #2e31354f;
+          box-shadow: 0 0 0 .2rem #2e31354f;
+}
+
 .card-body {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -40,7 +59,7 @@ nav .nav-link {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  padding: .8rem 1.25rem 1.25rem;
+  padding: 0.8rem 1.25rem 1.25rem;
 }
 
 .card {
@@ -50,13 +69,13 @@ nav .nav-link {
 
 .card .title {
   font-size: 1.5rem;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-weight: 400;
 }
 
 .card .price {
   color: #00ff0d;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-weight: 400;
 }
 
@@ -73,7 +92,7 @@ nav .nav-link {
   padding-left: 10px;
 }
 
-input[type=checkbox] {
+input[type="checkbox"] {
   display: none;
 }
 
@@ -193,7 +212,7 @@ input[type=checkbox] {
 
 .footer {
   padding-top: 4px;
-  font-family: 'Andada Pro';
+  font-family: "Andada Pro";
   font-size: 1.1rem;
   font-weight: 400;
   height: 33px;
